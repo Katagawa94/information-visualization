@@ -14,7 +14,7 @@
         <q-toolbar-title shrink>
           Information Visualization Wintersemester 2024/25
           <q-avatar rounded size="48px">
-            <img src="/src/assets/hsrm-logo-weiß.png" />
+            <img src="/public/icons/hsrm-logo-weiß.png" />
           </q-avatar>
         </q-toolbar-title>
 

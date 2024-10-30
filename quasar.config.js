@@ -14,6 +14,7 @@ const { configure } = require('quasar/wrappers');
 
 module.exports = configure(function (/* ctx */) {
   return {
+    publicPath: process.env.NODE_ENV === 'production' ? '/InformationVisualization/' : '/',
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
 

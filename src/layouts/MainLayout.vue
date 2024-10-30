@@ -13,6 +13,9 @@
 
         <q-toolbar-title shrink>
           Information Visualization Wintersemester 2024/25
+          <q-avatar rounded size="48px">
+            <img src="/icons/logo-weiß.png" />
+          </q-avatar>
         </q-toolbar-title>
 
         <div>Kevin Emunds @ HSRM</div>

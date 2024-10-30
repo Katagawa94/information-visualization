@@ -14,7 +14,7 @@
         <q-toolbar-title shrink>
           Information Visualization Wintersemester 2024/25
           <q-avatar rounded size="48px">
-            <img src="/icons/logo-weiß.png" />
+            <img :src="`${basePath}icons/logo-weiß.png`" />
           </q-avatar>
         </q-toolbar-title>
 
@@ -41,6 +41,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import SidebarDrawerMainContent from 'layouts/sidebar/SidebarDrawerMainContent.vue';
+
+const basePath = import.meta.env.BASE_URL;
 
 const leftDrawerOpen = ref(false);
 

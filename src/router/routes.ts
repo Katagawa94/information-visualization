@@ -33,6 +33,22 @@ const routes: RouteRecordRaw[] = [
             path: 'exercise6',
             component: () => import('pages/week1/Exercise6.vue'),
           },
+          {
+            path: 'exercise7',
+            component: () => import('pages/week1/Exercise7.vue'),
+          },
+          {
+            path: 'exercise8',
+            component: () => import('pages/week1/Exercise8.vue'),
+          },
+          {
+            path: 'exercise9',
+            component: () => import('pages/week1/Exercise9.vue'),
+          },
+          {
+            path: 'exercise-1',
+            component: () => import('pages/week1/Exercise-1.vue'),
+          },
         ],
       },
     ],

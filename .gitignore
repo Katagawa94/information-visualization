@@ -35,3 +35,6 @@ yarn-error.log*
 
 # local .env files
 .env.local*
+
+# deploy tool
+quazar_build_Push_Deploy.bat

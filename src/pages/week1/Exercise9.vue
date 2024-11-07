@@ -1,17 +1,21 @@
 <template>
   <ExerciseContainer>
     <h2>Line Chart</h2>
-    <svg class="line-chart" />
+    <q-spinner-audio v-if="loading" color="primary" size="10em" />
+
+    <svg id="plotContainer" />
   </ExerciseContainer>
 </template>
 
 <script setup lang="ts">
 import ExerciseContainer from 'src/components/ExerciseContainer.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import * as d3 from 'd3';
 
 const api =
   'https://api.coindesk.com/v1/bpi/historical/close.json?start=2021-01-01&end=2021-12-31';
+
+const loading = ref(true);
 
 interface BitcoinData {
   date: Date;
@@ -33,25 +37,24 @@ function drawChart(dataset: BitcoinData[]) {
   const height = svgHeight - margin.top - margin.bottom;
 
   const svg = d3
-    .select('svg')
+    .select('#plotContainer')
     .attr('width', svgWidth)
     .attr('height', svgHeight);
 
-  var g = svg
+  const g = svg
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  var x = d3.scaleTime().rangeRound([0, width]);
-
-  var y = d3.scaleLinear().rangeRound([height, 0]);
+  const xScale = d3.scaleTime().rangeRound([0, width]);
+  const yScale = d3.scaleLinear().rangeRound([height, 0]);
 
   var line = d3
     .line<BitcoinData>()
-    .x((d) => x(d.date))
-    .y((d) => y(d.price));
+    .x((d) => xScale(d.date))
+    .y((d) => yScale(d.price));
 
-  x.domain(d3.extent(dataset, (d) => d.date) as [Date, Date]);
-  y.domain([0, d3.max(dataset, (d) => d.price) || 0]);
+  xScale.domain(d3.extent(dataset, (d) => d.date) as [Date, Date]);
+  yScale.domain([0, d3.max(dataset, (d) => d.price) || 0]);
   g.append('path')
     .datum(dataset)
     .attr('fill', 'none')
@@ -61,9 +64,9 @@ function drawChart(dataset: BitcoinData[]) {
 
   g.append('g')
     .attr('transform', `translate(0, ${height})`)
-    .call(d3.axisBottom(x).ticks(5));
+    .call(d3.axisBottom(xScale).ticks(5));
 
-  g.append('g').call(d3.axisLeft(y));
+  g.append('g').call(d3.axisLeft(yScale));
 }
 
 onMounted(() => {
@@ -71,6 +74,7 @@ onMounted(() => {
     .then((response) => response.json())
     .then((data) => {
       const parsedData: BitcoinData[] = parseData(data.bpi);
+      loading.value = false;
       drawChart(parsedData);
     });
 });

@@ -38,7 +38,7 @@ const currentMode = ref<'grouped' | 'stacked'>('stacked');
 
 async function loadCSV(): Promise<RawData[]> {
   try {
-    const response = await fetch(`${basePath}src/assets/data/dataBip.csv`);
+    const response = await fetch(`${basePath}data/dataBip.csv`);
 
     if (!response.ok) {
       throw new Error('Failed to load CSV');

@@ -11,6 +11,20 @@ export interface WeeklyExercises {
   exercises: Exercise[];
 }
 
+export interface RawData {
+  group: number;
+  series: number;
+  value: number;
+}
+
+export interface StackedBarChartData {
+  group: number;
+  series: number;
+  value: number;
+  y0: number;
+  y1: number;
+}
+
 interface Margin {
   top: number;
   right: number;
@@ -31,13 +45,13 @@ export class SvgConfig {
     this.margin = margin;
   }
 
-  get width(): number {
+  get innerWidth(): number {
     return (
       this.svgWidth - this.margin.left - this.margin.right - this.margin.xlabel
     );
   }
 
-  get height(): number {
+  get innerHeight(): number {
     return (
       this.svgHeight - this.margin.top - this.margin.bottom - this.margin.ylabel
     );

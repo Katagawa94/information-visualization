@@ -79,7 +79,7 @@ function drawChart(data: DataValue[]): void {
   const fx = d3
     .scaleBand()
     .domain(new Set(data.map((d) => d.year.toString())))
-    .rangeRound([0, svgConfig.width])
+    .rangeRound([0, svgConfig.innerWidth])
     .padding(0.1);
 
   const refAreas = new Set(data.map((d) => d.refArea.toString()));
@@ -100,7 +100,7 @@ function drawChart(data: DataValue[]): void {
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d.value) as number])
     .nice()
-    .rangeRound([svgConfig.height, 0]);
+    .rangeRound([svgConfig.innerHeight, 0]);
 
   const plotContainer = d3
     .select('#plotContainer')
@@ -118,7 +118,7 @@ function drawChart(data: DataValue[]): void {
 
   plot
     .append('g')
-    .attr('transform', `translate(0, ${svgConfig.height})`)
+    .attr('transform', `translate(0, ${svgConfig.innerHeight})`)
     .call(d3.axisBottom(fx).tickSizeOuter(0))
     .call((g) => {
       g.selectAll('.domain').remove();
@@ -139,7 +139,7 @@ function drawChart(data: DataValue[]): void {
     .attr('x', (d) => xScale(d.refArea) as number)
     .attr('y', (d) => yScale(d.value))
     .attr('width', xScale.bandwidth())
-    .attr('height', (d) => svgConfig.height - yScale(d.value))
+    .attr('height', (d) => svgConfig.innerHeight - yScale(d.value))
     .attr('fill', (d) => color(d.refArea) as string);
 }
 </script>

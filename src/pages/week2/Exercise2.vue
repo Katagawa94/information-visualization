@@ -83,8 +83,8 @@ function drawChart(dataSet: DataSet) {
     )
   );
 
-  const xScale = d3.scaleTime().rangeRound([0, svgConfig.width]);
-  const yScale = d3.scaleLinear().rangeRound([svgConfig.height, 0]);
+  const xScale = d3.scaleTime().rangeRound([0, svgConfig.innerWidth]);
+  const yScale = d3.scaleLinear().rangeRound([svgConfig.innerHeight, 0]);
 
   xScale.domain(d3.extent(dataSet.timePeriods, (d) => d) as [Date, Date]);
   yScale.domain([0, maxObservationValue]);
@@ -105,7 +105,7 @@ function drawChart(dataSet: DataSet) {
 
   plot
     .append('g')
-    .attr('transform', `translate(0, ${svgConfig.height})`)
+    .attr('transform', `translate(0, ${svgConfig.innerHeight})`)
     .call(d3.axisBottom(xScale).ticks(5));
 
   plot.append('g').call(d3.axisLeft(yScale));
@@ -113,7 +113,7 @@ function drawChart(dataSet: DataSet) {
   plot
     .append('text')
     .attr('text-anchor', 'middle')
-    .attr('x', svgConfig.width / 2)
+    .attr('x', svgConfig.innerWidth / 2)
     .attr('y', svgConfig.svgHeight - svgConfig.margin.top)
     .text('Year');
 
@@ -121,10 +121,9 @@ function drawChart(dataSet: DataSet) {
     .append('text')
     .attr('text-anchor', 'middle')
     .attr('transform', 'rotate(-90)')
-    .attr('x', 0 - svgConfig.height / 2)
+    .attr('x', 0 - svgConfig.innerHeight / 2)
     .attr('y', 0 - svgConfig.margin.left)
     .text('Students Abroad');
-
 
   const colors = ['#69b3a2', '#ff6347', '#4682b4'];
 
@@ -142,6 +141,7 @@ function drawChart(dataSet: DataSet) {
       .attr('r', 4.0)
       .style('fill', color);
   });
+
 }
 </script>
 

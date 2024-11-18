@@ -124,6 +124,18 @@ const weeklyExercises = ref<WeeklyExercises[]>([
       },
     ],
   },
+  {
+    week: '3',
+    label: 'Presentation',
+    exercises: [
+      {
+        id: 31,
+        label: 'Exercise 1',
+        path: 'exercise1',
+        caption: 'Exercise 1',
+      },
+    ],
+  },
 ]);
 </script>
 

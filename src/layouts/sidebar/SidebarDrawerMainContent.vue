@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { WeeklyExercises } from 'src/components/models';
+import type { WeeklyExercises } from 'src/models/exercises';
 
 const weeklyExercises = ref<WeeklyExercises[]>([
   {
@@ -130,6 +130,18 @@ const weeklyExercises = ref<WeeklyExercises[]>([
     exercises: [
       {
         id: 31,
+        label: 'Exercise 1',
+        path: 'exercise1',
+        caption: 'Exercise 1',
+      },
+    ],
+  },
+  {
+    week: '4',
+    label: 'Landtagswahl',
+    exercises: [
+      {
+        id: 41,
         label: 'Exercise 1',
         path: 'exercise1',
         caption: 'Exercise 1',

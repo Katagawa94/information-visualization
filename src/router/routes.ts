@@ -41,6 +41,8 @@ const generateExerciseRoutes = (
           return import('pages/week2/Exercise3.vue');
         case 'pages/week3/Exercise1.vue':
           return import('pages/week3/Exercise1.vue');
+        case 'pages/week4/Exercise1.vue':
+          return import('pages/week4/Exercise1.vue');
         default:
           throw new Error(`Component not found for path: ${componentPath}`);
       }
@@ -61,6 +63,7 @@ const routes: RouteRecordRaw[] = [
       generateExerciseRoutes(1, [1, 2, 3, 4, 5, 6, 7, 8, 9, -1]),
       generateExerciseRoutes(2, [1, 2, 3]),
       generateExerciseRoutes(3, [1]),
+      generateExerciseRoutes(4, [1]),
     ],
   },
   {

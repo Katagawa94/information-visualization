@@ -30,51 +30,11 @@
 import { ref, onMounted } from 'vue';
 import * as d3 from 'd3';
 import ExerciseContainer from 'src/components/ExerciseContainer.vue';
-import { RawData, StackedBarChartData, SvgConfig } from 'src/components/models';
-
-const basePath = import.meta.env.BASE_URL;
+import { SvgConfig } from 'src/models/svgConfigs';
+import { RawData, StackedBarChartData } from 'src/models/stackedBarChart';
+import { loadCSV } from 'src/scripts/csvParser/bipCsvParser';
 
 const currentMode = ref<'grouped' | 'stacked'>('stacked');
-
-async function loadCSV(): Promise<RawData[]> {
-  try {
-    const response = await fetch(`${basePath}data/dataBip.csv`);
-
-    if (!response.ok) {
-      throw new Error('Failed to load CSV');
-    }
-
-    const csvText = await response.text();
-    const csvParsed = parseCSV(csvText);
-    const formattedData = formatCSV(csvParsed);
-    return formattedData;
-  } catch (error) {
-    console.error('Error loading CSV:', error);
-  }
-  return [];
-}
-
-function parseCSV(csvText: string): string[][] {
-  const rows = csvText.split('\n');
-  const csvData = rows.map((row) => row.split(','));
-  return csvData;
-}
-
-function formatCSV(csvParsed: string[][]): RawData[] {
-  const formattedData = csvParsed.slice(1).map((row) => {
-    return {
-      group: Number(row[0]),
-      series: Number(row[1]),
-      value: Number(row[2]),
-    };
-  });
-
-  const formattedFiltredData = formattedData.filter((d) => {
-    return d.group && d.series && d.value;
-  });
-
-  return formattedFiltredData;
-}
 
 function buildStackedBarChartData(rawData: RawData[]): StackedBarChartData[][] {
   const result: { [key: string]: StackedBarChartData[] } = {};
@@ -126,7 +86,7 @@ async function drawChart() {
 
   const stackedData = buildStackedBarChartData(rawData);
 
-  const yGroupedMax: number = d3.max(rawData, (d) => d.value) ?? 0;
+  const yGroupedMax = d3.max(rawData, (d) => d.value) ?? 0;
   const yStackedMax =
     d3.max(stackedData.flatMap((d) => d.map((v) => v.y1))) ?? 0;
 
@@ -275,6 +235,7 @@ const changeModeRef = ref<(mode: 'grouped' | 'stacked') => void>();
 onMounted(async () => {
   const { changeMode } = await drawChart();
   changeMode('stacked');
+
   changeModeRef.value = changeMode;
 });
 </script>

@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import ExerciseContainer from 'src/components/ExerciseContainer.vue';
 import * as d3 from 'd3';
-import { SvgConfig } from 'src/components/models';
+import { SvgConfig } from 'src/models/svgConfigs';
 import { onMounted, ref } from 'vue';
 import { SdmxParser } from 'src/scripts/sdmxDataParser';
 
@@ -141,7 +141,6 @@ function drawChart(dataSet: DataSet) {
       .attr('r', 4.0)
       .style('fill', color);
   });
-
 }
 </script>
 

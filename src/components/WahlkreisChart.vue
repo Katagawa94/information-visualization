@@ -49,6 +49,20 @@ function handleClick(event: Event, data: Feature) {
   }
 }
 
+function handleMouseOver(event: Event) {
+  d3.select(event.target as SVGPathElement)
+    .transition()
+    .duration(50)
+    .attr('opacity', '.70');
+}
+
+function handleMouseOut(event: Event) {
+  d3.select(event.target as SVGPathElement)
+    .transition()
+    .duration(50)
+    .attr('opacity', '1');
+}
+
 async function drawData() {
   const svgConfig = new SvgConfig(550, 700, {
     top: 40,
@@ -101,7 +115,9 @@ async function drawData() {
     .attr('stroke', 'white')
     .attr('stroke-width', 1.5)
     .attr('stroke-linejoin', 'round')
-    .on('click', (event, data) => handleClick(event, data));
+    .on('click', (event, data) => handleClick(event, data))
+    .on('mouseover', (event) => handleMouseOver(event))
+    .on('mouseout', (event) => handleMouseOut(event));
 }
 
 onMounted(async () => {
